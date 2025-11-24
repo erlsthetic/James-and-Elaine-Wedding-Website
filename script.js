@@ -231,32 +231,6 @@ function animateOnScroll() {
   });
 }
 
-document.getElementById("rsvpForm").addEventListener("submit", function (e) {
-  e.preventDefault();
-
-  if (!this.checkValidity()) {
-    alert("Please fill out all required fields correctly.");
-    return;
-  }
-
-  // Collect form data
-  const data = {
-    firstName: this.firstName.value,
-    lastName: this.lastName.value,
-    email: this.email.value,
-    phone: this.phone.value,
-    attending: this.attending.value,
-    dietary: this.dietary.value
-  };
-
-  console.log("RSVP Submitted:", data);
-
-  // TODO: send to server / Google Sheet / Firebase / email...
-  alert("Thank you! Your RSVP has been submitted.");
-  this.reset();
-});
-
-
 
 const openBtnRSVP = document.getElementById('RSVP-Btn');
 const openBtnRSVP1 = document.getElementById('RSVP-Btn1');
@@ -322,6 +296,8 @@ document.getElementById("rsvpForm").addEventListener("submit", function (e) {
     email: this.querySelector("[name='entry.197201715']").value,
     phone: this.querySelector("[name='entry.469976415']").value,
     attending: this.querySelector("[name='entry.877086558']:checked")?.value,
+    number: this.querySelector("[name='entry.818477210']:checked")?.value,
+    guests: this.querySelector("[name='entry.1890199750']:checked")?.value,
   };
 
   // Validate email + phone
