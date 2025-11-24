@@ -98,6 +98,8 @@
 /* ===== GLOBAL ===== */
 html {
     scroll-behavior: smooth;
+    overflow-x: hidden;
+    max-width: 100%;
 }
 :root {
     --wine: #6b3c43;
@@ -113,6 +115,8 @@ html {
 }
 
 body {
+    overflow-x: hidden;
+    max-width: 100%;
     margin: 0;
     font-family: var(--font-body);
     background: var(--body-white);
