@@ -290,6 +290,11 @@ function closeRSVPPopup() {
 document.getElementById("rsvpForm").addEventListener("submit", function (e) {
   e.preventDefault();
 
+  if (!this.checkValidity()) {
+    alert("Please fill out all required fields correctly.");
+    return;
+  }
+
   const data = {
     firstName: this.querySelector("[name='entry.1498135098']").value,
     lastName: this.querySelector("[name='entry.1003015547']").value,
@@ -313,3 +318,5 @@ document.getElementById("rsvpForm").addEventListener("submit", function (e) {
     this.reset();
   }, 700);
 });
+
+
