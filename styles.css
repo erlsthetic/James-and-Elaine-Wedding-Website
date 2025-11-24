@@ -559,9 +559,6 @@ h1, h2, h3, h4, p{
 .tl-item:hover {
     transform: scale(1.1);
     transition: .5s ease-out;
-}
-
-#tl-1 {
     border: #fff solid 1.5px;
 }
 

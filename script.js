@@ -322,7 +322,6 @@ document.getElementById("rsvpForm").addEventListener("submit", function (e) {
     email: this.querySelector("[name='entry.197201715']").value,
     phone: this.querySelector("[name='entry.469976415']").value,
     attending: this.querySelector("[name='entry.877086558']:checked")?.value,
-    dietary: this.querySelector("[name='entry.1315651412']").value,
   };
 
   // Validate email + phone
