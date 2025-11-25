@@ -16,10 +16,10 @@
              <nav class="navbar animate from-top" style="transition-delay: 2.4s;"> 
                 <ul>
                     <li><a href="#home">Home</a></li>
-                    <li><a href="#location">Location</a></li>
-                    <li><a href="#details">Details</a></li>
-                    <li><a href="#gallery">Gallery</a></li>
-                    <li><a href="#faqs">FAQs</a></li>
+                    <li><a href="#location-section">Location</a></li>
+                    <li><a href="#details-section">Details</a></li>
+                    <li><a href="#gallery-section">Gallery</a></li>
+                    <li><a href="#faqs-section">FAQs</a></li>
                 </ul>
                 <div class="hamburger animate from-top" id="hamburger">
                     <span></span>
@@ -55,7 +55,7 @@
 
 
     <!-- LOCATION -->
-    <section id="location" class="section">
+    <section id="location-section" class="section">
         <div class="section-content">
             <h2 class="location-title animate from-top">LOCATION</h2>
 
@@ -105,7 +105,7 @@
 
 
     <!-- TIMELINE -->
-    <section id="details" class="timeline-section section">
+    <section id="details-section" class="timeline-section section">
         <div class="section-content">
             <h4 class="details-title animate from-left">DETAILS</h4>
         <h2 class="section-title white animate from-left">Timeline</h2>
@@ -284,11 +284,12 @@
 
                 <p class="colors animate from-top">The colors:</p>
                 <div class="swatches">
-                    <div class="swatch sw1 animate from-top" data-colorname="Lavender" data-hex="#C0BDD0"></div>
-                    <div class="swatch sw2 animate from-top" style="transition-delay: 0.3s;" data-colorname="Old Rose" data-hex="#C7AFB5"></div>
-                    <div class="swatch sw3 animate from-top" style="transition-delay: 0.6s;"data-colorname="Taupe Pink" data-hex="#D8CDCE"></div>
-                    <div class="swatch sw4 animate from-top" style="transition-delay: 0.9s;"data-colorname="Sea Salt (Green Gray)" data-hex="#C6C6C6"></div>
-                    <div class="swatch sw5 animate from-top" style="transition-delay: 1.2s;"data-colorname="Sage Green" data-hex="#C6CDC1"></div>
+                    <div class="swatch-container animate from-top"></div>
+                    <div class="swatch sw1" data-colorname="Lavender" data-hex="#C0BDD0"></div>
+                    <div class="swatch-container animate from-top" style="transition-delay: 0.3s;" ><div class="swatch sw2" data-colorname="Old Rose" data-hex="#C7AFB5"></div></div>
+                    <div class="swatch-container animate from-top" style="transition-delay: 0.6s;" ><div class="swatch sw3" data-colorname="Taupe Pink" data-hex="#D8CDCE"></div></div>
+                    <div class="swatch-container animate from-top" style="transition-delay: 0.9s;" ><div class="swatch sw4" data-colorname="Sea Salt (Green Gray)" data-hex="#C6C6C6"></div></div>
+                    <div class="swatch-container animate from-top" style="transition-delay: 1.2s;" ><div class="swatch sw5" data-colorname="Sage Green" data-hex="#C6CDC1"></div></div>
                 </div>
 
                 <div class="outfit-type">
@@ -324,7 +325,7 @@
     </section>
 
 
-    <!-- GALLERY -->
+    <!-- GALLERY 
     <section id="gallery" class="gallery-section section">
         <div class="section-content" id="section-content-header">
             <h2 class="section-title animate from-left">Gallery</h2>
@@ -333,8 +334,6 @@
         <div class="section-content animate" id="section-content-slider">
             <div class="gallery-slider">
                 <div class="gallery-btn"><button class="prev">&#8249;</button></div>
-
-                <!-- Crossfade: two images stacked -->
                 <div class="gallery-image-wrapper">
                     <img id="galleryImageA" class="gallery-img show" src="assets/images/Gallery1.jpg">
                     <img id="galleryImageB" class="gallery-img" src="">
@@ -343,11 +342,24 @@
                 <div class="gallery-btn"><button class="next">&#8250;</button></div>
             </div>
         </div>
+    </section> -->
+
+    <!-- GALLERY -->
+    <section id="gallery-section" class="gallery-section section">
+        <div class="section-content" id="section-content-header">
+            <h2 class="section-title animate from-left">Gallery</h2>
+            <h3 class="section-subtitle white animate from-top">Photos & Memories</h3>
+        </div>
+        <div class="section-content animate" id="section-content-slider">
+            <div class="gallery" id="gallery"></div>
+        </div>
     </section>
 
 
+
+
     <!-- FAQ -->
-    <section class="faq-section section" id="faqs">
+    <section class="faq-section section" id="faqs-section">
         <div class="section-content">
         <h2 class="section-title animate">FAQs</h2>
 
@@ -373,8 +385,12 @@
                 <div class="faq-answer">No, please make the necessary arrangements, such as Grab, taxi, or local car services. You may also choose to bring your car; there are ample parking spaces available.</div>
             </div>
             <div class="faq-item animate from-left">
+                <button class="faq-question">Are there nearby hotels/accommodations where we can stay for the weekend?</button>
+                <div class="faq-answer">We recommend staying at Seda Nuvali for the big day, which is around 15-20 min drive to/from the Church and Reception Venue. You are welcome to arrive the day before or extend your stay afterwards.<br><br>For reservation inquiries, you may directly reach out to Ms. Julianne Decal of Seda Nuvali at decal.julianne@sedahotels.com or at +63 917 839 3523.</div>
+            </div>
+            <div class="faq-item animate from-left">
                 <button class="faq-question">When is the RSVP deadline?</button>
-                <div class="faq-answer">Please RSVP (one entry per guest) by 15 March 2026, so we can get an accurate headcount.</div>
+                <div class="faq-answer">Please RSVP by March 15, 2026, so we can get an accurate headcount.</div>
             </div>
         </div>
         </div>
@@ -451,10 +467,10 @@
         <span class="close-btn-hmb" id="closeBtnHmb">&times;</span>
         <ul>
             <li><a href="#home" class="overlay-link">Home</a></li>
-            <li><a href="#location" class="overlay-link">Location</a></li>
-            <li><a href="#details" class="overlay-link">Details</a></li>
-            <li><a href="#gallery" class="overlay-link">Gallery</a></li>
-            <li><a href="#faqs" class="overlay-link">FAQs</a></li>
+            <li><a href="#location-section" class="overlay-link">Location</a></li>
+            <li><a href="#details-section" class="overlay-link">Details</a></li>
+            <li><a href="#gallery-section" class="overlay-link">Gallery</a></li>
+            <li><a href="#faqs-section" class="overlay-link">FAQs</a></li>
         </ul>
     </div>
     
@@ -502,7 +518,7 @@
 
                 <div class="form-group full-width">
                     <label>Number of People Attending Based on the Given Reserved Seats *</label>
-                    <input type="number" name="entry.818477210" required>
+                    <input type="number" min="0" name="entry.818477210" required>
                 </div>
 
                 <div class="form-group full-width">
@@ -521,6 +537,28 @@
 
     <div id="toast" class="toast">RSVP submitted successfully!</div>
 
+    <div class="lightbox" id="lightbox" aria-hidden="true" role="dialog" aria-label="Image viewer">
+        <button class="close btn" id="btnCloseImgViewer" title="Close (Esc)">✕</button>
+
+        <div class="viewer" role="document">
+            <div class="nav-controls">
+            <button id="prevBtn" title="Previous (←)">‹</button>
+            <button id="nextBtn" title="Next (→)">›</button>
+            </div>
+
+            <div class="imgwrap" id="imgwrap">
+            <img id="lightImg" alt="" draggable="false" />
+            </div>
+
+            <div class="controls" id="controls">
+            <button class="btn" id="zoomOut" title="Zoom out (−)">−</button>
+            <button class="btn" id="resetZoom" title="Reset zoom">1×</button>
+            <button class="btn" id="zoomIn" title="Zoom in (+)">+</button>
+            </div>
+        </div>
+
+        <div class="meta" id="meta"></div>
+    </div>
 
     <script src="script.js"></script>
 </body>

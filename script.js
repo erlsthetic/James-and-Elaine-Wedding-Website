@@ -1,6 +1,6 @@
 
 /* ===== GALLERY SLIDER ===== */
-const images = [
+const imageUrls = [
     "assets/images/Gallery1.jpg",
     "assets/images/Gallery2.jpg",
     "assets/images/Gallery3.jpg",
@@ -16,35 +16,251 @@ const images = [
     "assets/images/Gallery13.jpg",
     "assets/images/Gallery14.jpg",
     "assets/images/Gallery15.jpg",
+    "assets/images/Gallery16.jpg"
 ];
 
-let current = 0;
+// let current = 0;
 
-const imgA = document.getElementById("galleryImageA");
-const imgB = document.getElementById("galleryImageB");
+// const imgA = document.getElementById("galleryImageA");
+// const imgB = document.getElementById("galleryImageB");
 
-document.querySelector(".prev").onclick = () => change(-1);
-document.querySelector(".next").onclick = () => change(1);
+// document.querySelector(".prev").onclick = () => change(-1);
+// document.querySelector(".next").onclick = () => change(1);
 
-let showingA = true;
+// let showingA = true;
 
-function change(dir) {
-    const next = (current + dir + images.length) % images.length;
-    const newSrc = images[next];
+// function change(dir) {
+//     const next = (current + dir + images.length) % images.length;
+//     const newSrc = images[next];
 
-    if (showingA) {
-        imgB.src = newSrc;
-        imgB.classList.add("show");
-        imgA.classList.remove("show");
-    } else {
-        imgA.src = newSrc;
-        imgA.classList.add("show");
-        imgB.classList.remove("show");
-    }
+//     if (showingA) {
+//         imgB.src = newSrc;
+//         imgB.classList.add("show");
+//         imgA.classList.remove("show");
+//     } else {
+//         imgA.src = newSrc;
+//         imgA.classList.add("show");
+//         imgB.classList.remove("show");
+//     }
 
-    showingA = !showingA;
-    current = next;
+//     showingA = !showingA;
+//     current = next;
+// }
+
+const galleryEl = document.getElementById('gallery');
+const lightbox = document.getElementById('lightbox');
+const lightImg = document.getElementById('lightImg');
+const metaEl = document.getElementById('meta');
+const imgwrap = document.getElementById('imgwrap');
+
+let currentIndex = 0;
+let scale = 1;
+const MIN_SCALE = 0.5;
+const MAX_SCALE = 4;
+const SCALE_STEP = 0.15;
+
+// Preload function
+function preload(url){
+  const img = new Image();
+  img.src = url;
 }
+
+// build gallery
+imageUrls.forEach((url, i) => {
+  const item = document.createElement('div');
+  item.className = 'thumb';
+  item.innerHTML = `<img src="${url}" alt="Image ${i+1}" loading="lazy" data-index="${i}">`;
+  item.addEventListener('click', () => openViewer(i));
+  galleryEl.appendChild(item);
+  preload(url);
+});
+
+// viewer controls
+const btnClose = document.getElementById('btnCloseImgViewer');
+const nextBtn = document.getElementById('nextBtn');
+const prevBtn = document.getElementById('prevBtn');
+const zoomIn = document.getElementById('zoomIn');
+const zoomOut = document.getElementById('zoomOut');
+const resetZoom = document.getElementById('resetZoom');
+
+btnClose.addEventListener('click', closeViewer);
+nextBtn.addEventListener('click', () => showIndex(currentIndex + 1));
+prevBtn.addEventListener('click', () => showIndex(currentIndex - 1));
+zoomIn.addEventListener('click', () => setScale(scale + SCALE_STEP));
+zoomOut.addEventListener('click', () => setScale(scale - SCALE_STEP));
+resetZoom.addEventListener('click', () => setScale(1));
+
+// open viewer
+function openViewer(index){
+  currentIndex = (index + imageUrls.length) % imageUrls.length;
+  setScale(1);
+  render();
+  lightbox.classList.add('visible');
+  lightbox.setAttribute('aria-hidden', 'false');
+  document.body.style.overflow = 'hidden'; // prevent background scroll
+  // focus for keyboard handling
+  window.setTimeout(() => { lightbox.focus?.(); }, 50);
+}
+
+// close viewer
+function closeViewer(){
+  lightbox.classList.remove('visible');
+  lightbox.setAttribute('aria-hidden', 'true');
+  document.body.style.overflow = '';
+  setScale(1);
+}
+
+// show image by index with wrapping
+function showIndex(i){
+  currentIndex = (i + imageUrls.length) % imageUrls.length;
+  setScale(1);
+  render();
+}
+
+// render current image
+function render(){
+  const url = imageUrls[currentIndex];
+  lightImg.src = url;
+  lightImg.alt = `Image ${currentIndex + 1}`;
+  metaEl.textContent = `${currentIndex + 1} / ${imageUrls.length}`;
+  updateImageTransform();
+}
+
+// scale handling
+function setScale(s){
+  scale = Math.min(MAX_SCALE, Math.max(MIN_SCALE, s));
+  updateImageTransform();
+}
+
+// apply CSS transform
+function updateImageTransform(){
+  lightImg.style.transform = `scale(${scale})`;
+}
+
+// close when clicking outside the imgwrap
+lightbox.addEventListener('click', (e) => {
+  // if click target is lightbox itself (outside viewer) or on background overlay
+  if(e.target === lightbox) closeViewer();
+});
+
+// keyboard support
+window.addEventListener('keydown', (e) => {
+  if (!lightbox.classList.contains('visible')) return;
+  if (e.key === 'Escape') closeViewer();
+  if (e.key === 'ArrowRight') showIndex(currentIndex + 1);
+  if (e.key === 'ArrowLeft') showIndex(currentIndex - 1);
+  if (e.key === '+' || e.key === '=' ) setScale(scale + SCALE_STEP);
+  if (e.key === '-') setScale(scale - SCALE_STEP);
+  if (e.key === '0') setScale(1);
+});
+
+// wheel zoom (only when pointer is inside imgwrap)
+let wheelTimeout;
+imgwrap.addEventListener('wheel', (e) => {
+  e.preventDefault();
+  const delta = -Math.sign(e.deltaY) * (SCALE_STEP * 1.2);
+  setScale(scale + delta);
+
+  // optional: small delay to prevent overscroll affecting page — already prevented by e.preventDefault()
+  clearTimeout(wheelTimeout);
+  wheelTimeout = setTimeout(() => {}, 100);
+}, { passive: false });
+
+// touch: double-tap to reset / zoom
+let lastTap = 0;
+imgwrap.addEventListener('touchend', (e) => {
+  const now = Date.now();
+  if (now - lastTap < 300) {
+    // double tap
+    setScale(scale === 1 ? 2 : 1);
+  }
+  lastTap = now;
+});
+
+// drag to pan when zoomed
+let isDragging = false;
+let startX = 0;
+let startY = 0;
+let currentTranslateX = 0;
+let currentTranslateY = 0;
+
+lightImg.style.cursor = 'grab';
+
+imgwrap.addEventListener('pointerdown', (e) => {
+  if (scale <= 1.01) return;
+  isDragging = true;
+  imgwrap.setPointerCapture(e.pointerId);
+  startX = e.clientX - currentTranslateX;
+  startY = e.clientY - currentTranslateY;
+  lightImg.style.transition = 'none';
+  lightImg.style.cursor = 'grabbing';
+});
+
+imgwrap.addEventListener('pointermove', (e) => {
+  if (!isDragging) return;
+  currentTranslateX = e.clientX - startX;
+  currentTranslateY = e.clientY - startY;
+  lightImg.style.transform = `translate(${currentTranslateX}px, ${currentTranslateY}px) scale(${scale})`;
+});
+
+imgwrap.addEventListener('pointerup', (e) => {
+  if (!isDragging) return;
+  isDragging = false;
+  imgwrap.releasePointerCapture(e.pointerId);
+  lightImg.style.transition = '';
+  lightImg.style.cursor = 'grab';
+});
+
+// Reset translate when scale changes to 1
+function resetTranslateIfNeeded(){
+  if (scale <= 1.01) {
+    currentTranslateX = 0;
+    currentTranslateY = 0;
+    lightImg.style.transform = `scale(${scale})`;
+  } else {
+    lightImg.style.transform = `translate(${currentTranslateX}px, ${currentTranslateY}px) scale(${scale})`;
+  }
+}
+
+// wrap updateImageTransform to consider translate
+function updateImageTransform(){
+  if (scale <= 1.01) {
+    currentTranslateX = 0;
+    currentTranslateY = 0;
+    lightImg.style.transform = `scale(${scale})`;
+  } else {
+    lightImg.style.transform = `translate(${currentTranslateX}px, ${currentTranslateY}px) scale(${scale})`;
+  }
+}
+
+// when pressing next/prev, reset translate
+const originalShowIndex = showIndex;
+showIndex = function(i){
+  currentTranslateX = 0;
+  currentTranslateY = 0;
+  originalShowIndex(i);
+};
+
+// ensure clicking next/prev keeps focus
+[nextBtn, prevBtn, btnClose, zoomIn, zoomOut, resetZoom].forEach(b => {
+  b.addEventListener('mousedown', (ev) => ev.preventDefault());
+});
+
+// preload neighbors for smoother nav
+lightImg.addEventListener('load', () => {
+  const next = new Image();
+  next.src = imageUrls[(currentIndex + 1) % imageUrls.length];
+  const prev = new Image();
+  prev.src = imageUrls[(currentIndex - 1 + imageUrls.length) % imageUrls.length];
+});
+
+// Accessibility: trap focus (simple)
+document.addEventListener('focusin', (e) => {
+  if (!lightbox.classList.contains('visible')) return;
+  if (!lightbox.contains(e.target)) {
+    btnClose.focus();
+  }
+});
 
 
 /* ===== FAQ ACCORDION ===== */
@@ -318,5 +534,7 @@ document.getElementById("rsvpForm").addEventListener("submit", function (e) {
     this.reset();
   }, 700);
 });
+
+
 
 
