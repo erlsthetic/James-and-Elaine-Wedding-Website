@@ -620,11 +620,11 @@ h1, h2, h3, h4, p {
         text-align: center;
     }
     .timeline-grid {
-    gap: 16px;
-    grid-template-columns: repeat(1, minmax(min(80px, 100%), 1fr));
-    margin-top: 16px;
-    margin-bottom: 16px;
-}
+        gap: 16px;
+        grid-template-columns: repeat(1, minmax(min(80px, 100%), 1fr));
+        margin-top: 16px;
+        margin-bottom: 16px;
+    }
 }
 
 /* ===== ENTOURAGE ===== */
@@ -655,6 +655,10 @@ h1, h2, h3, h4, p {
     text-align: left;
     margin-bottom: clamp(8px, 4vw, 32px);
     align-items: start;
+}
+
+.bottom-align {
+    align-items: end;
 }
 
 .entourage-container {
