@@ -653,7 +653,7 @@ h1, h2, h3, h4, p {
     grid-template-columns: repeat(auto-fit, minmax(min(100px, 100%), 1fr));
     gap: clamp(2px, 2vw, 8px) clamp(8px, 6vw, 48px);
     text-align: left;
-    margin-bottom: clamp(8px, 4vw, 32px);
+    margin-bottom: clamp(4px, 2vw, 16px);
     align-items: start;
 }
 
