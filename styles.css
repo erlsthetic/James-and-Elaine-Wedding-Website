@@ -732,6 +732,7 @@ h1, h2, h3, h4, p {
 }
 .attire-section .section-subtitle {
     color: var(--white);
+    margin-bottom: clamp(16px, 2.5vw, 24px);
 }
 
 .attire-grid {
@@ -764,6 +765,10 @@ h1, h2, h3, h4, p {
     text-align: center;
 }
 
+.attire-left .white {
+    margin-bottom: clamp(16px, 2.5vw, 32px);
+}
+
 .attire-left p {
     font-size: var(--fs-20);
     color: var(--white);
@@ -774,7 +779,7 @@ h1, h2, h3, h4, p {
 }
 
 .attire-left .outfit-type {
-    display: flex;
+    /* display: flex; */
     justify-content: center;
     align-items: center;
     gap: 8px;
@@ -790,7 +795,7 @@ h1, h2, h3, h4, p {
     gap: 8px;
     color: var(--gray-lightest);
     font-size: var(--fs-20);
-    text-align: left;
+    text-align: center;
 }
 
 
@@ -800,8 +805,12 @@ h1, h2, h3, h4, p {
 }
 
 .attire-left .outfit-identifier {
+    text-align: center;
+    font-size: var(--fs-28);
+    font-family: 'The Seasons', serif;
+    text-align: center;
+    margin-top: 16px;
     font-weight: bold;
-    text-align: right;
 }
 
 .attire-right {
@@ -811,7 +820,7 @@ h1, h2, h3, h4, p {
 }
 
 .attire-right img {
-    width: clamp(200px, 40vw, 450px);
+    width: clamp(240px, 42vw, 450px);
     height: auto;
     position: absolute;
     right: 0;
@@ -834,12 +843,13 @@ h1, h2, h3, h4, p {
 .swatches {
     display: flex;
     gap: clamp(2px, 3vw, 16px);
-    margin: 20px 0;
+    margin-top: 16px;
+    margin-bottom: 32px;
 }
 
 .swatch {
-    width: clamp(20px, 5vw, 60px);
-    height: clamp(20px, 5vw, 60px);
+    width: clamp(40px, 5vw, 60px);
+    height: clamp(40px, 5vw, 60px);
     border-radius: 50%;
 }
 
